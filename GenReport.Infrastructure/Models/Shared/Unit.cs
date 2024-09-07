@@ -12,7 +12,7 @@ namespace GenReport.Infrastructure.Models.Shared
     /// Represents a void type, typically used in generic contexts where a type must be provided
     /// but no value is actually needed or returned.
     /// </summary>
-    public readonly struct Unit : IEquatable<Unit>
+    public class Unit : IEquatable<Unit>
     {
         /// <summary>
         /// The single instance of the Unit type.
@@ -24,14 +24,16 @@ namespace GenReport.Infrastructure.Models.Shared
         /// </summary>
         /// <param name="other">The Unit to compare with the current Unit.</param>
         /// <returns>true if the specified Unit is equal to the current Unit; otherwise, false.</returns>
-        public bool Equals(Unit other) => true;
+#pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
+        public bool Equals(Unit other) =>  GetHashCode() == other.GetHashCode();
+#pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
 
         /// <summary>
         /// Determines whether the specified object is equal to the current Unit.
         /// </summary>
         /// <param name="obj">The object to compare with the current Unit.</param>
         /// <returns>true if the specified object is a Unit; otherwise, false.</returns>
-         #pragma warning disable CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
+#pragma warning disable CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
         public override bool Equals(object obj) => obj is Unit;
         #pragma warning restore CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
 
