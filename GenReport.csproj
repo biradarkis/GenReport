@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Middlewares\**" />
+    <Content Remove="Middlewares\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
+    <None Remove="Middlewares\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FastEndpoints" Version="5.28.0" />
     <PackageReference Include="FastEndpoints.Attributes" Version="5.28.0" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.28.0" />
@@ -30,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
+    <Folder Include="GenReport.Api\Middlewares\" />
   </ItemGroup>
 
 </Project>
