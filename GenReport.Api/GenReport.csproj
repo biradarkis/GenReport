@@ -10,12 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GenReport.Api\**" />
     <Compile Remove="Middlewares\**" />
+    <Content Remove="GenReport.Api\**" />
     <Content Remove="Middlewares\**" />
+    <EmbeddedResource Remove="GenReport.Api\**" />
     <EmbeddedResource Remove="Middlewares\**" />
+    <None Remove="GenReport.Api\**" />
     <None Remove="Middlewares\**" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FastEndpoints" Version="5.28.0" />
     <PackageReference Include="FastEndpoints.Attributes" Version="5.28.0" />
@@ -32,12 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=".\GenReport.DB\GenReport.DB.csproj" />
-    <ProjectReference Include=".\GenReport.Infrastructure\GenReport.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="GenReport.Api\Middlewares\" />
+    <ProjectReference Include="..\GenReport.DB\GenReport.DB.csproj" />
+    <ProjectReference Include="..\GenReport.Infrastructure\GenReport.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,10 +5,12 @@ using GenReport.Domain.Entities.Media;
 using GenReport.Domain.Entities.Business;
 using GenReport.Domain.Entities.Onboarding;
 using Microsoft.EntityFrameworkCore;
+using GenReport.Domain.EntityConfigurations;
+using GenReport.DB.Domain.EntityConfigurations;
 
 namespace GenReport.Domain.DBContext
 {
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
     {
         #region Users
         public DbSet<User> Users { get; set; }
@@ -21,5 +23,13 @@ namespace GenReport.Domain.DBContext
         #region Media
         public DbSet<MediaFile> MediaFiles { get; set; }
         #endregion Media
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new OrganizationConfiguration());
+            modelBuilder.ApplyConfiguration(new MediaFileConfiguration());
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

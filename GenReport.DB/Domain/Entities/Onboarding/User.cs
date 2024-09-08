@@ -39,7 +39,7 @@ namespace GenReport.Domain.Entities.Onboarding
         }
 
         [Column("password")]
-        private string Password { get; set; }
+        public string Password { get; private set; }
 
         public bool MatchPassword(string unhashedPassword)
         {

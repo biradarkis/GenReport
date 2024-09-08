@@ -22,9 +22,9 @@
                 lastName: Faker.Name.Last(),
                 middleName: Faker.Name.Middle(),
                 profileURL: Faker.Internet.SecureUrl(),
-                organizationId: orgaizationIds[Faker.RandomNumber.Next(orgaizationIds.Count)], password: "Kris#0808")).ToList();
+                organizationId: orgaizationIds[Faker.RandomNumber.Next(orgaizationIds.Count-1)], password: "Kris#0808")).ToList();
             applicationDbContext.Users.AddRange(users);
-            
+            await applicationDbContext.SaveChangesAsync();
         }
     }
 }

@@ -34,5 +34,6 @@ namespace GenReport.Infrastructure.Models.HttpRequests.Onboarding
         /// </summary>
         public required string Password { get; set; }
 
+
     }
 }

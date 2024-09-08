@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Attributes\" />
+    <Compile Remove="Domain\Attributes\**" />
+    <EmbeddedResource Remove="Domain\Attributes\**" />
+    <None Remove="Domain\Attributes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Domain\Events\" />
     <Folder Include="Domain\Performance\" />
   </ItemGroup>

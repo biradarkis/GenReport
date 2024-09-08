@@ -9,7 +9,7 @@ using System.Security.Cryptography.Xml;
 
 namespace GenReport.Endpoints.Onboarding
 {
-    public class Signup(ApplicationDbContext context, IApplicationConfiguration configuration, IJWTTokenService jWTTokenService)  : Endpoint<SignupRequest,Unit>
+    public class Signup(ApplicationDbContext context, IApplicationConfiguration configuration, IJWTTokenService jWTTokenService)  : Endpoint<SignupRequest,HttpResponse<Unit>>
     {
         private readonly ApplicationDbContext _context = context;
         private readonly IApplicationConfiguration _configuration = configuration;
@@ -18,17 +18,20 @@ namespace GenReport.Endpoints.Onboarding
         {
             Post("/signup");
             AllowAnonymous();
-            base.Configure();
+            
         }
-        public override async Task<HttpResponse<Unit>> HandleAsync(SignupRequest req, CancellationToken ct)
+        public override async Task HandleAsync(SignupRequest req, CancellationToken ct)
         {
-            var existingUser = await _context.Users.FirstOrDefaultAsync(x=>x.Email==req.Email);
+            var existingUser = await _context.Users.FirstOrDefaultAsync(x=>x.Email==req.Email,ct);
             if (existingUser != null) 
             {
-                return new HttpResponse<Unit>(System.Net.HttpStatusCode.Conflict,"please try using a different email", ErrorMessages.USER_ALREADY_EXISTS, [$"user with email {req.Email} already exists"]);
+              await  SendAsync(new HttpResponse<Unit>(System.Net.HttpStatusCode.Conflict,"please try using a different email", ErrorMessages.USER_ALREADY_EXISTS, [$"user with email {req.Email} already exists"]), cancellation: ct);
+              return;
             }
-            var defaultOrganizationId = await _context.Organizations.Select(x => x.Id).firsr;
-            _context.Users.Add(new Domain.Entities.Onboarding.User(req.Password,req.Email,req.FirstName,req.LastName,req.MiddleName,))
+            var defaultOrganizationId = await _context.Organizations.Select(x => x.Id).FirstOrDefaultAsync(ct);
+            _context.Users.Add(new Domain.Entities.Onboarding.User(req.Password,req.Email,req.FirstName ,req.LastName , req.MiddleName , defaultOrganizationId,string.Empty));
+            await _context.SaveChangesAsync(ct);
+            await SendAsync(new HttpResponse<Unit>(Unit.Value), cancellation: ct);
         }
     }
 }

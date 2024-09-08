@@ -18,6 +18,7 @@
             var organizations = Enumerable.Range(0, 10).Select(x => new Organization(name :Faker.Company.Name(),Faker.Identification.DateOfBirth(), Faker.Identification.DateOfBirth(), Faker.Boolean.Random()));
 
              await applicationDbContext.Organizations.AddRangeAsync(organizations);
+             await applicationDbContext.SaveChangesAsync();
             
         }
     }

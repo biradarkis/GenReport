@@ -36,7 +36,6 @@
         {
             Post("/login");
             AllowAnonymous();
-            base.Configure();
         }
 
         /// <summary>
@@ -45,20 +44,24 @@
         /// <param name="req">The req<see cref="LoginRequest"/></param>
         /// <param name="ct">The ct<see cref="CancellationToken"/></param>
         /// <returns>The <see cref="Task{HttpResponse{LoginResponse}}"/></returns>
-        public override async Task<HttpResponse<LoginResponse>> HandleAsync(LoginRequest req, CancellationToken ct)
+        public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == req.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == req.Email, cancellationToken: ct);
             if (user == null)
             {
-                return new HttpResponse<LoginResponse>(System.Net.HttpStatusCode.Unauthorized, "Please check email", ErrorMessages.USER_NOT_FOUND, [$"user with email {req.Email} not found"]);
+                await SendAsync(new HttpResponse<LoginResponse>(System.Net.HttpStatusCode.Unauthorized, "Please check email", ErrorMessages.USER_NOT_FOUND, [$"user with email {req.Email} not found"]), cancellation: ct);
+                return;
             }
+            #pragma warning disable CS8602 // Dereference of a possibly null reference.
             if (!user.MatchPassword(req.Password))
             {
-                return new HttpResponse<LoginResponse>(System.Net.HttpStatusCode.Unauthorized, "Please check password", ErrorMessages.PASSWORD_DOESNT_MATCH, [$"wrong password for email {req.Email} not found"]);
+                await SendAsync(new HttpResponse<LoginResponse>(System.Net.HttpStatusCode.Unauthorized, "Please check password", ErrorMessages.PASSWORD_DOESNT_MATCH, [$"wrong password for email {req.Email} not found"]), cancellation: ct);
+                return;
             }
+            #pragma warning restore CS8602 // Dereference of a possibly null reference.
             var token = jWTTokenService.GenrateAccessToken(user, _configuration.IssuerSigningKey, _configuration.AccessTokenExpiry);
             var refreshToken = jWTTokenService.GenrateAccessToken(user, _configuration.IssuerRefreshKey, _configuration.RefreshTokenExpiry);
-            return new HttpResponse<LoginResponse>(new LoginResponse { Token = token, RefreshToken = refreshToken }, $"Hi {user.FirstName} {user.LastName}!", System.Net.HttpStatusCode.OK);
+            await SendAsync(new HttpResponse<LoginResponse>(new LoginResponse { Token = token, RefreshToken = refreshToken }, $"Hi {user.FirstName} {user.LastName}!", System.Net.HttpStatusCode.OK), cancellation: ct);
         }
     }
 }

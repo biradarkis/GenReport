@@ -1,23 +1,28 @@
-﻿using GenReport.DB.Domain.Interfaces;
-using GenReport.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace GenReport.DB.Domain.Seed
+﻿namespace GenReport.DB.Domain.Seed
 {
-    public partial class ApplicationDBContextSeeder(IApplicationDbContext applicationDbContext) : IApplicationSeeder
-    {
-        private readonly IApplicationDbContext applicationDbContext = applicationDbContext;
+    using GenReport.Domain.DBContext;
+    using GenReport.Domain.Interfaces;
+    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Defines the <see cref="ApplicationDBContextSeeder" />
+    /// </summary>
+    public partial class ApplicationDBContextSeeder(ApplicationDbContext applicationDbContext) : IApplicationSeeder
+    {
+        /// <summary>
+        /// Defines the applicationDbContext
+        /// </summary>
+        private readonly ApplicationDbContext applicationDbContext = applicationDbContext;
+
+        /// <summary>
+        /// The Seed
+        /// </summary>
+        /// <returns>The <see cref="Task"/></returns>
         public async Task Seed()
         {
-           await SeedOrganizations();
-           await SeedUsers();
-           await SeedMediaFiles();
+            await SeedOrganizations();
+            await SeedUsers();
+            await SeedMediaFiles();
         }
     }
 }

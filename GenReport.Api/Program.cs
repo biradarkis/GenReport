@@ -44,7 +44,7 @@ builder.Services.AddSwaggerGen();
 // Register custom services
 builder.Services.AddSingleton<IApplicationConfiguration>(applicationConfiguration);
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
-builder.Services.AddSingleton<IApplicationSeeder, ApplicationDBContextSeeder>();
+builder.Services.AddScoped<IApplicationSeeder, ApplicationDBContextSeeder>();
 builder.Services.AddSingleton<IJWTTokenService,JWTTokenService>();
 
 // Configure JWT Authentication
@@ -139,10 +139,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//delete if alread Exists
+if (applicationConfiguration.DeleteDB)
+{
+    Console.WriteLine("this will delete the DB are you sure you want to delete \n type yes to continue");
+   string? res = Console.ReadLine();
+    if(res!=null && res.Equals("yes", StringComparison.CurrentCultureIgnoreCase))
+    {
+        Console.WriteLine("deleting db ");
+        await DeleteDB(app);
+        Console.WriteLine("database deleted");
+    }
+    
+}
 // Initialize and seed the database
 if (applicationConfiguration.CreateDB)
 {
+    Console.WriteLine("creating db ");
     await CreateDB(app);
+    Console.WriteLine("created db ");
 }
 
 if (applicationConfiguration.SeedDB)
@@ -150,12 +165,11 @@ if (applicationConfiguration.SeedDB)
     await SeedDB(app);
 }
 
-if (applicationConfiguration.DeleteDB)
-{
-    await DeleteDB(app);
-}
+
 // Run the application 
 await app.RunAsync();
+
+// add DB triggers to set created and updatedon values
 
 // Helper methods for database operations
 
