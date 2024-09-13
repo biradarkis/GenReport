@@ -7,6 +7,7 @@ using GenReport.Domain.Entities.Onboarding;
 using Microsoft.EntityFrameworkCore;
 using GenReport.Domain.EntityConfigurations;
 using GenReport.DB.Domain.EntityConfigurations;
+using GenReport.DB.Domain.Entities.Core;
 
 namespace GenReport.Domain.DBContext
 {
@@ -23,7 +24,11 @@ namespace GenReport.Domain.DBContext
         #region Media
         public DbSet<MediaFile> MediaFiles { get; set; }
         #endregion Media
-
+        #region Core
+        public DbSet<Database> Databases { get; set; }
+        public DbSet<Query> Queries { get; set; }
+        #endregion
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());

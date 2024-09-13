@@ -5,6 +5,7 @@ namespace GenReport.Tests
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]

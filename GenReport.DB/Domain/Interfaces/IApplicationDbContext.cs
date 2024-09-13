@@ -1,4 +1,5 @@
-﻿using GenReport.Domain.Entities.Business;
+﻿using GenReport.DB.Domain.Entities.Core;
+using GenReport.Domain.Entities.Business;
 using GenReport.Domain.Entities.Media;
 using GenReport.Domain.Entities.Onboarding;
 using Microsoft.EntityFrameworkCore;
@@ -15,5 +16,7 @@ namespace GenReport.DB.Domain.Interfaces
         public DbSet<User> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<MediaFile> MediaFiles { get; set; }
+        public DbSet<Database> Databases { get; set; }
+        public DbSet<Query> Queries { get; set; }
     }
 }
