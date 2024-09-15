@@ -10,6 +10,7 @@ using GenReport.Infrastructure.Security;
 using GenReport.Services.Implementations;
 using GenReport.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -46,6 +47,12 @@ builder.Services.AddSingleton<IApplicationConfiguration>(applicationConfiguratio
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IApplicationSeeder, ApplicationDBContextSeeder>();
 builder.Services.AddSingleton<IJWTTokenService,JWTTokenService>();
+
+// add cors
+builder.Services.AddCors((options)=>options.AddPolicy("allow all",new CorsPolicy 
+{
+    IsOriginAllowed = (origin)=>true,
+}));
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -131,7 +138,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline
 app.UseAuthentication();
 app.UseFastEndpoints();
-
+app.UseCors("allow all");
 // Enable Swagger in development environment
 if (app.Environment.IsDevelopment())
 {
