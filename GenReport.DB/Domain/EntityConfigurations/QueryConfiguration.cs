@@ -16,7 +16,9 @@ namespace GenReport.DB.Domain.EntityConfigurations
             builder.HasKey(x => x.Id);
             builder.HasOne(x=>x.CreatedBy).WithMany().HasForeignKey(x=>x.CreatedById).OnDelete(DeleteBehavior.ClientSetNull);
             builder.HasOne(x=>x.Database).WithMany().HasForeignKey(x=>x.DatabaseId).OnDelete(DeleteBehavior.ClientSetNull);
-            builder.Property(x => x.InvolvedTables).IsRequired().HasColumnType("text[]");    
+            builder.Property(x => x.InvolvedTables).IsRequired().HasColumnType("text[]");
+            builder.Property(x => x.InvolvedColumns).IsRequired().HasColumnType("text[]");
+            
         }
     }
 }

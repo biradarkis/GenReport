@@ -13,8 +13,7 @@ namespace GenReport.DB.Domain.Seed
         public async Task SeedDatabases()
         {
             var providers  = new Dictionary<string, string>();
-            providers.Add("Csharp", "NpgSql");
-            providers.Add("golang", "gorm");
+
             var database = new Database
             {
                 BackupSchedule = (int)TimeSpan.FromDays(1).TotalMinutes,
@@ -29,8 +28,7 @@ namespace GenReport.DB.Domain.Seed
                 Username = "postgres",
                 Port = 5433,
                 CreatedAt = DateTime.UtcNow,
-                Providers =providers,
-                ModifiedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
             };
 
            await  applicationDbContext.Databases.AddAsync(database);

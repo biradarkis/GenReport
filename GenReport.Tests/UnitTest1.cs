@@ -13,5 +13,6 @@ namespace GenReport.Tests
         {
             Assert.Pass();
         }
+
     }
 }

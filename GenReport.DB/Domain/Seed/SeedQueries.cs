@@ -10,7 +10,7 @@ namespace GenReport.DB.Domain.Seed
     {
         public async Task SeedQueries()
         {
-
+            await Task.Run(() => { });
         }
     }
 }

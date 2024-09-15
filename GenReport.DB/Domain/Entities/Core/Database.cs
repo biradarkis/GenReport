@@ -27,16 +27,9 @@ namespace GenReport.DB.Domain.Entities.Core
         /// Gets or sets the database provider (e.g., MySQL, PostgreSQL).
         /// </summary>
         [Required]
-        [Column("providers", TypeName = "jsonb")]
-        public Dictionary<string, string> Providers { get; set; } = [];
-
-        /// <summary>
-        /// Gets or sets the database type (e.g., relational, NoSQL).
-        /// </summary>
-        [Required]
         [StringLength(50)]
         [Column("type")]
-        public required string  Type { get; set; }
+        public required string Type { get; set; } 
 
         /// <summary>
         /// Gets or sets the connection string for the database.
@@ -83,10 +76,10 @@ namespace GenReport.DB.Domain.Entities.Core
         /// <summary>
         /// Gets or sets the last modified date of the database.
         /// </summary>
-        [Column("modified_at")]
+        [Column("updated_at")]
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime ModifiedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the database (e.g., active, inactive).
@@ -131,6 +124,10 @@ namespace GenReport.DB.Domain.Entities.Core
         /// </summary>
         [Column("security_level")]
         public string? SecurityLevel { get; set; }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public DbProvider DbProvider { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public long DbProviderId { get; set; }
 
     }
 }

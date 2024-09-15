@@ -51,5 +51,6 @@
         /// Gets or sets the RefreshTokenExpiry
         /// </summary>
         public int RefreshTokenExpiry { get; set; }
+        
     }
 }
