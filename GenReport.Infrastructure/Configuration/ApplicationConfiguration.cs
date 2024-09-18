@@ -51,6 +51,12 @@
         /// Gets or sets the RefreshTokenExpiry
         /// </summary>
         public int RefreshTokenExpiry { get; set; }
-        
+        /// <summary>
+        /// Gets or sets a value indicating whether to [log urls].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logurls]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LogURLs { get; set; }
     }
 }

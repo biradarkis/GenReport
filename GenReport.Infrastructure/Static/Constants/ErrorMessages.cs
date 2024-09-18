@@ -26,5 +26,6 @@
         public static string USER_NOT_FOUND => "USER_NOT_FOUND";
         public static string PASSWORD_DOESNT_MATCH => "PASSWORD_DOES_NOT_MATCH";
         public static string USER_ALREADY_EXISTS => "USER_ALREADY_EXISTS";
+        public static string MIDDLEWARE_ERROR => "MIDDLEWARE_ERROR";
     }
 }
