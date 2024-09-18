@@ -18,7 +18,7 @@ namespace GenReport.Endpoints.Dashboard
         public override Task HandleAsync(CancellationToken ct)
         {
             var userId  =  _currentUserService.LoggedInUserId();
-            var reports = _context.Reports.Where(x => x.Query.CreatedById == userId).Select(x=> new );
+            var reports = _context.Reports.Where(x => x.Query.CreatedById == userId).Select(x=> new  );
         }
     }
 }

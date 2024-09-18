@@ -16,4 +16,8 @@
     <ProjectReference Include="..\GenReport.DB\GenReport.DB.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\HttpRequests\Dashboard\" />
+  </ItemGroup>
+
 </Project>
