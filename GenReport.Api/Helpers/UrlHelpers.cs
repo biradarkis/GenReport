@@ -2,13 +2,26 @@
 {
     using Microsoft.AspNetCore.Http;
 
-    public class UrlHelper
+    /// <summary>
+    /// UrlHelper extensions
+    /// </summary>
+    public static class UrlHelper
     {
-        public static string GetRequestUrl(HttpContext httpContext)
+        /// <summary>
+        /// Gets the request URL.
+        /// </summary>
+        /// <param name="httpContext">The HTTP context.</param>
+        /// <returns></returns>
+        public static string GetRequestUrl( this HttpContext httpContext)
         {
             return $"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.Path}{httpContext.Request.QueryString}";
         }
-        public static string GetBaseUrl(HttpContext httpContext)
+        /// <summary>
+        /// Gets the base URL.
+        /// </summary>
+        /// <param name="httpContext">The HTTP context.</param>
+        /// <returns></returns>
+        public static string GetBaseUrl(this HttpContext httpContext)
         {
             return $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";
         }

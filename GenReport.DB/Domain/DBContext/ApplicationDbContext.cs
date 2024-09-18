@@ -69,6 +69,7 @@ namespace GenReport.Domain.DBContext
         /// The database providers.
         /// </value>
         public DbSet<DbProvider> DbProviders { get; set; }
+        public DbSet<Report> Reports { get; set; }
         #endregion
 
         /// <summary>

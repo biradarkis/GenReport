@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Rystem.OpenAi;
 using Serilog;
 using System.Text;
 
@@ -35,7 +36,10 @@ builder.Services.AddFastEndpoints();
 
 
 // Add OpenAI
-
+builder.Services.AddOpenAi((settings) => new OpenAiSettings
+{
+    ApiKey = "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",
+});
 
 
 

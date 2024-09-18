@@ -12,12 +12,16 @@ using GenReport.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 
 // Create a new web application builder
+/// <summary>
+/// Initializes a new instance of the <see cref="$Program"/> class.
+/// </summary>
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration setup
@@ -27,7 +31,7 @@ configuration.GetSection("Configuration").Bind(applicationConfiguration);
 
 // Database Context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(configuration.GetConnectionString("GenReportPostgres"),
+    options.ConfigureWarnings(w => w.Ignore(CoreEventId.PossibleIncorrectRequiredNavigationWithQueryFilterInteractionWarning)).UseNpgsql(configuration.GetConnectionString("GenReportPostgres"),
         npgSqlOptions => npgSqlOptions.CommandTimeout(applicationConfiguration.CommandTimeOut)));
 
 // Add FastEndpoints
@@ -46,12 +50,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IApplicationConfiguration>(applicationConfiguration);
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IApplicationSeeder, ApplicationDBContextSeeder>();
-builder.Services.AddSingleton<IJWTTokenService,JWTTokenService>();
+builder.Services.AddSingleton<IJWTTokenService, JWTTokenService>();
 
 // add cors
-builder.Services.AddCors((options)=>options.AddPolicy("allow all",new CorsPolicy 
+builder.Services.AddCors((options) => options.AddPolicy("allow all", new CorsPolicy
 {
-    IsOriginAllowed = (origin)=>true,
+    IsOriginAllowed = (origin) => true,
 }));
 
 // Configure JWT Authentication
@@ -150,14 +154,14 @@ if (app.Environment.IsDevelopment())
 if (applicationConfiguration.DeleteDB)
 {
     Console.WriteLine("this will delete the DB are you sure you want to delete \n type yes to continue");
-   string? res = Console.ReadLine();
-    if(res!=null && res.Equals("yes", StringComparison.CurrentCultureIgnoreCase))
+    string? res = Console.ReadLine();
+    if (res != null && res.Equals("yes", StringComparison.CurrentCultureIgnoreCase))
     {
         Console.WriteLine("deleting db ");
         await DeleteDB(app);
         Console.WriteLine("database deleted");
     }
-    
+
 }
 // Initialize and seed the database
 if (applicationConfiguration.CreateDB)
@@ -167,10 +171,8 @@ if (applicationConfiguration.CreateDB)
     Console.WriteLine("created db ");
 }
 
-if (applicationConfiguration.SeedDB)
-{
-    await SeedDB(app);
-}
+
+await SeedDB(app);
 
 
 // Run the application 
@@ -197,18 +199,23 @@ async Task SeedDB(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
     var seeder = scope.ServiceProvider.GetRequiredService<IApplicationSeeder>();
-    await seeder.Seed();
+    await seeder.SeedMandatoryTables();
+    await seeder.RunScripts();
+    if (applicationConfiguration.SeedDB)
+        await seeder.Seed();
 }
 
- /// <summary>
- /// Deletes the database
- /// </summary>
- async Task DeleteDB(WebApplication app)
- {
-     using var scope = app.Services.CreateScope();
-     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-     await dbContext.Database.EnsureDeletedAsync();
- }
+/// <summary>
+/// Deletes the database
+/// </summary>
+/// <param name="app">The application.</param>
+/// <returns></returns>
+async Task DeleteDB(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await dbContext.Database.EnsureDeletedAsync();
+}
 
 
 

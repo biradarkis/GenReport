@@ -19,9 +19,10 @@ namespace GenReport.Infrastructure.SharedServices.AI
             this.openAiFactory = openAiFactory;
             openAi = openAiFactory.CreateChat();
         }
-        public async Task<string[]> GetTableNamesFromQueryAsync(string requestText ,Dictionary<string,List<string>>)
+        public async Task<string[]> GetTableNamesFromQueryAsync(string requestText ,Dictionary<string,List<string>> schema)
         {
-            openAi.RequestWithUserMessage(string.Format("the user has input the message \"{0}\" i have the tables with columns {1} in my db please return the list of tables and columns in key value format where the key is table and values are its correspoding columns that you think the user wants to perform operation on.",requestText ));
+            openAi?.RequestWithUserMessage($"the user has input the message \"{requestText}\" i have the tables with columns {1} in my db please return the list of tables and columns in key value format where the key is table and values are its correspoding columns that you think the user wants to perform operation on.");
+            return [];
         }
     }
 }

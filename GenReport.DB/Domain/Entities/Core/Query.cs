@@ -64,5 +64,17 @@ namespace GenReport.DB.Domain.Entities.Core
         /// </summary>
         [Column("comments")]
         public string[] Comments { get; set; } = [];
+
+        /// <summary>
+        /// Gets or sets the created at.
+        /// </summary>
+        /// <value>
+        /// The created at.
+        /// </value>
+        [Column("created_at")]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [Column("updated_at")]
+        public DateTime UpdatedAt { get;set; }
     }
 }

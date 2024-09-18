@@ -12,5 +12,7 @@
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
         public Task Seed();
+        public Task SeedMandatoryTables();
+        public Task RunScripts();
     }
 }

@@ -15,6 +15,7 @@
   <ItemGroup>
     <Folder Include="Domain\Events\" />
     <Folder Include="Domain\Performance\" />
+    <Folder Include="Domain\Seed\SqlScripts\" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

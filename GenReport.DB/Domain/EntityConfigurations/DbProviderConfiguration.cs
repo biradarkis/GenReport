@@ -13,9 +13,7 @@ namespace GenReport.DB.Domain.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<DbProvider> builder)
         {
-            builder.HasData([new DbProvider { Name = "NpgSql" , CreatedAt = DateTime.UtcNow , UpdatedAt = DateTime.UtcNow , DbType = "PostgreSQL" , Language = "C#" }, new DbProvider { Name = "System.Data.SqlClient" , CreatedAt = DateTime.UtcNow , UpdatedAt = DateTime.UtcNow , DbType =  "SQL Server" , Language = "C#" }]);
-            builder.HasKey(e => e.Id);
-            
+            builder.HasKey(e => e.Id);   
         }
     }
 }
