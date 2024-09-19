@@ -11,22 +11,18 @@
 
   <ItemGroup>
     <Compile Remove="GenReport.Api\**" />
-    <Compile Remove="Middlewares\**" />
     <Content Remove="GenReport.Api\**" />
-    <Content Remove="Middlewares\**" />
     <EmbeddedResource Remove="GenReport.Api\**" />
-    <EmbeddedResource Remove="Middlewares\**" />
     <None Remove="GenReport.Api\**" />
-    <None Remove="Middlewares\**" />
   </ItemGroup>
   <PropertyGroup>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;</NoWarn>
+    <NoWarn>1701;1702;8601</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;</NoWarn>
+    <NoWarn>1701;1702;8601</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FastEndpoints" Version="5.28.0" />
