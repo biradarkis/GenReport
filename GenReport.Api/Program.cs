@@ -7,6 +7,7 @@ using GenReport.Helpers;
 using GenReport.Infrastructure.Configuration;
 using GenReport.Infrastructure.Interfaces;
 using GenReport.Infrastructure.Security;
+using GenReport.Middlewares;
 using GenReport.Services.Implementations;
 using GenReport.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -141,7 +142,10 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline
 app.UseAuthentication();
-app.UseFastEndpoints();
+app.UseFastEndpoints((config) => 
+{
+    config.Endpoints.Configurator = (endpointconfigurator) => endpointconfigurator.Options(o => o.AddEndpointFilter<GlobalExceptionHandler>());
+});
 app.UseCors("allow all");
 // Enable Swagger in development environment
 if (app.Environment.IsDevelopment())
