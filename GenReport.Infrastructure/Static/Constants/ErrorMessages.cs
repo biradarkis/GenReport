@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines the <see cref="ErrorMessages" />
     /// </summary>
-    public static class ErrorMessages
+    public struct ErrorMessages
     {
         /// <summary>
         /// Gets the TOKEN_NOT_VALID
