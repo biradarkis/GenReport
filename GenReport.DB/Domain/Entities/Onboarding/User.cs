@@ -1,5 +1,6 @@
 ﻿using CoreDdd.Domain;
 using CoreDdd.Domain.Events;
+using GenReport.DB.Domain.Events;
 using GenReport.Domain.Entities.Business;
 using GenReport.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -82,5 +83,10 @@ namespace GenReport.Domain.Entities.Onboarding
         public bool IsDeleted { get; set; } = false;
 
         #endregion
+        //TODO: Raise doamin event
+        public void ForgotPassword()
+        {
+            DomainEvents.RaiseEvent(new ForgotPasswordEvent { Id = Id });   
+        }
     }
 }
