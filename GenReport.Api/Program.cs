@@ -142,9 +142,9 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline
 app.UseAuthentication();
-app.UseFastEndpoints((config) => 
+app.UseFastEndpoints((config) =>
 {
-    config.Endpoints.Configurator = (endpointconfigurator) => endpointconfigurator.Options(o => o.AddEndpointFilter<GlobalExceptionHandler>());
+    config.Endpoints.Configurator = (endpointconfigurator) => endpointconfigurator.Options(o => o.AddEndpointFilter<PerformanceInspector>().AddEndpointFilter<GlobalExceptionHandler>());
 });
 app.UseCors("allow all");
 // Enable Swagger in development environment

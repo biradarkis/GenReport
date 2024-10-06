@@ -7,6 +7,7 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Net.Mime;
+using Serilog;
 
 
 namespace GenReport.Infrastructure.SharedServices.Distributed.RabbitMQ
@@ -39,7 +40,7 @@ namespace GenReport.Infrastructure.SharedServices.Distributed.RabbitMQ
             }
             catch (Exception e)
             {
-                
+                Log.Error(e, $"Error executing {nameof(ProduceMessage)} {e.Message}");
                 throw;
             }
         }
@@ -66,7 +67,7 @@ namespace GenReport.Infrastructure.SharedServices.Distributed.RabbitMQ
             }
             catch (Exception e)
             {
-
+                Log.Error(e, $"Error executing {nameof(ProduceBatchMessages)} {e.Message}");
                 throw;
             }
 
