@@ -92,12 +92,8 @@ namespace GenReport.Domain.DBContext
         /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new OrganizationConfiguration());
-            modelBuilder.ApplyConfiguration(new MediaFileConfiguration());
-            modelBuilder.ApplyConfiguration(new DatabaseConfiguration());
-            modelBuilder.ApplyConfiguration(new QueryConfiguration());
-            modelBuilder.ApplyConfiguration(new DbProviderConfiguration());
+            modelBuilder.ApplyAllConfigurations();
+                
             base.OnModelCreating(modelBuilder);
         }
     }

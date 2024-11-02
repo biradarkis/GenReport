@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <Compile Remove="Domain\Attributes\**" />
+    <Compile Remove="Domain\Performance\**" />
     <EmbeddedResource Remove="Domain\Attributes\**" />
+    <EmbeddedResource Remove="Domain\Performance\**" />
     <None Remove="Domain\Attributes\**" />
+    <None Remove="Domain\Performance\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Performance\" />
     <Folder Include="Domain\Seed\SqlScripts\" CopyToOutputDirectory="PreserveNewest{}" />
   </ItemGroup>
 
