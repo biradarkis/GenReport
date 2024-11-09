@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GenReport.Domain.EntityConfigurations;
 using GenReport.DB.Domain.EntityConfigurations;
 using GenReport.DB.Domain.Entities.Core;
+using GenReport.Infrastructure.Static.Externsions;
+using GenReport.DB.Domain.Entities.Business;
 
 namespace GenReport.Domain.DBContext
 {
@@ -69,7 +71,18 @@ namespace GenReport.Domain.DBContext
         /// The database providers.
         /// </value>
         public DbSet<DbProvider> DbProviders { get; set; }
+        /// <summary>
+        /// The Reports table represents all the reports generated 
+        /// </summary>
         public DbSet<Report> Reports { get; set; }
+        /// <summary>
+        /// The Table for modules represents various modules available in this software
+        /// </summary>
+        public DbSet<Module> Modules { get; set; }
+        /// <summary>
+        /// The Table for rolemodules mapping represents various modules mappings available in this software
+        /// </summary>
+        public DbSet<RoleModuleMapping> RoleModules { get; set; }   
         #endregion
 
         /// <summary>
@@ -92,8 +105,7 @@ namespace GenReport.Domain.DBContext
         /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyAllConfigurations();
-                
+            modelBuilder.ApplyAllConfigurations(); 
             base.OnModelCreating(modelBuilder);
         }
     }

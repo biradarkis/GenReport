@@ -82,6 +82,9 @@ namespace GenReport.Domain.Entities.Onboarding
         [Column("is_deleted")]
         public bool IsDeleted { get; set; } = false;
 
+        [Column("role_id")]
+        public int RoleId { get; set; } 
+
         #endregion
         //TODO: Raise doamin event
         public void ForgotPassword()

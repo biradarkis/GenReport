@@ -12,8 +12,8 @@ namespace GenReport.DB.Domain.Entities.Core
     /// <summary>
     /// The Report Entity
     /// </summary>
-    /// <seealso cref="CoreDdd.Domain.Entity&lt;System.Int64&gt;" />
-    /// <seealso cref="CoreDdd.Domain.Entity&lt;System.Int64&gt;" />
+    /// <seealso cref="CoreDdd.Domain.Entity<System.Int64>" />
+    /// <seealso cref="CoreDdd.Domain.Entity<System.Int64>" />
     /// <seealso cref="CoreDdd.Domain.IAggregateRoot" />
     [Table("reports")]
     public class Report : Entity<long> , IAggregateRoot

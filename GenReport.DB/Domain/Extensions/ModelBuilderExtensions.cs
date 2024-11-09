@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace GenReport.Infrastructure.Static.Externsions
 {
@@ -17,7 +12,9 @@ namespace GenReport.Infrastructure.Static.Externsions
 
             foreach (var type in typesToRegister)
             {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 dynamic configurationInstance = Activator.CreateInstance(type);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                 modelBuilder.ApplyConfiguration(configurationInstance);
             }
         }

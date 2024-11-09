@@ -16,7 +16,7 @@ namespace GenReport.Infrastructure.SharedServices.AI
         private IOpenAiChat? openAi = null;
         public OpenAIService(IOpenAiFactory openAiFactory)
         {
-            this.openAiFactory = openAiFactory;
+            this.openAiFactory = openAiFactory; 
             openAi = openAiFactory.CreateChat();
         }
         public async Task<string[]> GetTableNamesFromQueryAsync(string requestText ,Dictionary<string,List<string>> schema)

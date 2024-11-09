@@ -9,13 +9,13 @@ namespace GenReport.Domain.Entities.Business
     public class Organization : Entity<long> , IAggregateRoot , IDeletable
     {
         [System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
-        public Organization(string name, DateTime createdAt, DateTime updatedAt,  bool isDeleted)
+        public Organization(string name, DateTime createdAt, DateTime updatedAt)
         {
             Name = name;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
             Users = [];
-            IsDeleted = isDeleted;
+            
         }
 
         #region Columns
