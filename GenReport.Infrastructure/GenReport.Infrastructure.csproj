@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\HttpRequests\Dashboard\**" />
+    <EmbeddedResource Remove="Models\HttpRequests\Dashboard\**" />
+    <None Remove="Models\HttpRequests\Dashboard\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
@@ -16,10 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GenReport.DB\GenReport.DB.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\HttpRequests\Dashboard\" />
   </ItemGroup>
 
 </Project>

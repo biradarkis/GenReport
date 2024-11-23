@@ -24,6 +24,7 @@ namespace GenReport.Endpoints.Shared
             var user = await _applicationDbContext.Users.FirstOrDefaultAsync(r => r.Id == userId, ct);
             if (user == null)
             {
+                _logger.LogError("Invalid access");
                 await SendAsync(new HttpResponse<List<NavabarImplResponse>>(System.Net.HttpStatusCode.Unauthorized, "unauthorized access user is not logged in or invalid user id", ErrorMessages.UNAUTHORIZED, []));
             }
             var navItems = await _applicationDbContext.RoleModules.Where(r => r.RoleId == user.RoleId).Select(r => new NavabarImplResponse
